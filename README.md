@@ -4,10 +4,17 @@ Enterprise networking portfolio featuring Cisco routing and switching labs, mult
 
 ## 🛠️ Network Lab Topology & Roadmap
 
-### 🛑 Lab 1: Corporate Core Architecture (Routing & Switching)
-* **Status:** 🟦 Coming Soon
+## 🛑 Lab 1: Corporate Core Architecture (Routing & Switching)
+* **Status:** ✅ Complete
 * **Objective:** Design a multi-department network implementing VLSM, subinterfaces, Inter-VLAN routing, and DHCP relay configurations.
 * **Core Technologies:** VLANs, 802.1Q Trunking, Router-on-a-Stick, Access Control Lists (ACLs).
+
+### 📸 Topology & Verification Proof
+**Network Topology Design:**
+![Network Topology](physical-topology.png)
+
+**Inter-VLAN Routing Verification (Successful Cross-Subnet Ping):**
+![Ping Success Verification](inter-vlan-ping-success.png)
 
 ### 🛑 Lab 2: Infrastructure Redundancy & High Availability
 * **Status:** 🟦 Coming Soon
