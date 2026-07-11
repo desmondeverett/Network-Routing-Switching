@@ -49,17 +49,11 @@ The physical network design and Inter-VLAN routing matrix were successfully depl
 
 ## Screenshots
 
-### 1. Converged Network Topology Diagram
-![Network Topology](../Screenshots/physical-topology.png)
+### 1. EtherChannel Link Aggregation Summary
+![EtherChannel Summary]()
 
-### 2. Switch VLAN Configuration Verification
-![VLAN Verification](../Screenshots/vlan-verification.png)
+### 2. Rapid-PVST+ Root Bridge Verification
+![Spanning Tree Root]()
 
-### 3. Switch Port Assignment Details
-![VLAN Port Assignment](../Screenshots/vlan-port-assignment.png)
-
-### 4. Router Sub-Interface Status
-![Router Interfaces](../Screenshots/router-interfaces.png)
-
-### 5. Inter-VLAN Routing Verification (Successful Cross-Subnet Ping)
-![Ping Success Verification](../Screenshots/inter-vlan-ping-success.png)
+### 3. HSRP Active Gateway Takeover Proof
+![HSRP Standby Brief]()
