@@ -8,7 +8,6 @@
 3. Configure Gigabit Ethernet copper trunk links for switch-to-switch and switch-to-router connections to support backbone data frames.
 4. Segment the topology logically into separate, distinct subnets to isolate department broadcast domains and maximize address space efficiency.
 
-📸 *SCREENSHOT #1:* Capture the fully converged, green-link physical network topology diagram inside Packet Tracer.
 
 ---
 
@@ -18,7 +17,6 @@
 3. Configure the interconnecting uplink interfaces as IEEE 802.1Q Trunks to pass multi-VLAN tagged traffic up the fabric.
 4. Verify the active mappings using the `show vlan brief` command to confirm no ports are misallocated.
 
-📸 *SCREENSHOT #2:* Capture the switch CLI output verifying active VLAN port assignments and trunk interfaces.
 
 ---
 
@@ -27,8 +25,6 @@
 2. Initialize sub-interfaces for each corporate VLAN using the `interface gigabitEthernet 0/0.X` naming convention.
 3. Provision the appropriate 802.1Q encapsulation tags (`encapsulation dot1Q X`) before applying the default gateway IP addresses.
 4. Open a command prompt on an end-user workstation in one VLAN and execute a cross-subnet ICMP ping to a host in a completely separate VLAN to verify active routing.
-
-📸 *SCREENSHOT #3:* Capture the successful cross-subnet ICMP ping reply verifying active Inter-VLAN communication.
 
 ---
 
