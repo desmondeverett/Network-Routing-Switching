@@ -45,9 +45,8 @@ Successfully deployed a highly available network topology. By implementing LACP 
 ## Lessons Learned
 (To be completed based on your execution.)
 
-## Configurations & Documentation
-- **Core Switch 1 Config:** [View core1-config.txt](../Text%20Files/core1-config.txt)
-- **Core Switch 2 Config:** [View core2-config.txt](../Text%20Files/core2-config.txt)
+### Core Switch Configuration
+You can view the full configuration file here: [Core-1 Configuration](../Text%20Files/core1-config.txt)
 
 ## Screenshots
 #### 1. LACP EtherChannel Verification
