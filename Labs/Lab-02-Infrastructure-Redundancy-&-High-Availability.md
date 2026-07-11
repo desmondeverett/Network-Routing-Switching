@@ -10,7 +10,7 @@ Engineer a highly available local area network (LAN) by eliminating single point
 ## Requirements & Scope
 1. Provision Layer 2 link aggregation using LACP (Link Aggregation Control Protocol) to prevent spanning-tree loop blocking and increase inter-switch bandwidth.
 2. Configure HSRP across the core multilayer switches to provide a highly available virtual default gateway for end-users.
-3. Simulate a physical link failure and verify seamless traffic failover without dropping continuous user connectivity.
+3. Simulate a physical gateway failure and verify the control plane successfully transitions the Standby switch to the Active routing state.
 
 ## Implementation Steps
 
@@ -30,11 +30,12 @@ Engineer a highly available local area network (LAN) by eliminating single point
 5. Execute `show standby brief` to verify the Active/Standby state of the routers.
    > 📸 **SCREENSHOT #2:** Capture the CLI output of `show standby brief` on the Active switch, verifying it holds the virtual IP and recognizes the Standby router. (Save as `02-hsrp-standby-brief.png`)
 
-### Phase 3: High Availability Failover Verification
-1. Open the command prompt on an end-user workstation and execute a continuous ping to an external network or server (e.g., `ping -t 8.8.8.8`).
-2. While the ping is running, manually shut down the active interface on Core Switch 1, or sever the physical link in the topology.
-3. Observe the continuous ping. Traffic should drop for only a few seconds while HSRP promotes the Standby switch, then successfully resume.
-   > 📸 **SCREENSHOT #3:** Capture the workstation command prompt showing the continuous ping successfully resuming after a brief timeout during the failover event. (Save as `03-failover-ping-test.png`)
+### Phase 3: Control Plane Failover Verification
+1. Access the CLI of Core Switch 1 (the Active gateway) and manually shut down its routing interface to simulate a catastrophic gateway failure.
+2. Access the CLI of Core Switch 2 (the Standby gateway) and execute `show standby brief`.
+3. Verify that Core Switch 2 successfully detected the failure and automatically promoted itself to the `Active` state for the Virtual IP.
+4. Execute `show spanning-tree vlan 10` to verify the Layer 2 path remained open and forwarding (`FWD`) across the redundant EtherChannel trunk during the event.
+   > 📸 **SCREENSHOT #3:** Capture the CLI outputs proving the Standby router transitioned to Active and Spanning Tree maintained forwarding states during the failover event. (Save as `03-failover-ping-test.png`)
 
 ---
 
@@ -55,5 +56,5 @@ Successfully deployed a highly available network topology. By implementing LACP 
 #### 2. HSRP Gateway State
 ![HSRP Verification](../Screenshots/02-hsrp-standby-brief.png)
 
-#### 3. Continuous Ping Failover Test
+#### 3. Control Plane Failover Verification
 ![Failover Test](../Screenshots/03-failover-ping-test.png)
