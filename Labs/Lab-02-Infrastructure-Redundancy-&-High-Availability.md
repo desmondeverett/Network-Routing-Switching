@@ -47,7 +47,7 @@ Successfully deployed a highly available network topology. By implementing LACP 
 - **Control Plane Verification:** Adapted testing strategies by relying on control plane verification rather than data plane simulation. By analyzing `show standby brief` and `show spanning-tree` outputs, I was able to mathematically prove that the Standby router successfully promoted itself to Active and that the Layer 2 EtherChannel path remained unblocked and forwarding. 
 - **Protocol Synergy:** Reinforced how LACP and HSRP work together. LACP protects the physical Layer 2 path by preventing spanning-tree loops across multiple links, while HSRP protects the Layer 3 routing path by floating a virtual default gateway.
 
-### Troubleshooting Log: ARP Resolution Bug (Network Lab 02)
+### Troubleshooting Log: ARP Resolution Bug
 
 **Date:** 2026-07-11
 **Issue:** Persistent connectivity failure due to unresolved ARP mapping between Client A and Router.
