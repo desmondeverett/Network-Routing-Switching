@@ -20,7 +20,7 @@ Engineer a highly available local area network (LAN) by eliminating single point
 3. Bundle the physical interfaces into a logical Port-Channel using LACP (mode `active`).
 4. Configure the newly created Port-Channel interface as an 802.1Q trunk.
 5. Execute `show etherchannel summary` to verify the bundle is in use (SU).
-   > 📸 **SCREENSHOT #1:** Capture the CLI output of `show etherchannel summary` displaying the active Port-Channel and its bundled physical ports. (Save as `01-etherchannel-summary.png`)
+
 
 ### Phase 2: First Hop Redundancy (HSRP) Configuration
 1. Access the CLI of Core Switch 1 (Active) and Core Switch 2 (Standby).
@@ -28,14 +28,14 @@ Engineer a highly available local area network (LAN) by eliminating single point
 3. Assign the physical IP addresses to both switches, then configure the shared HSRP virtual IP address (e.g., `standby 10 ip 192.168.10.1`).
 4. Set the HSRP priority on Core Switch 1 to `110` and enable `preempt` to force it to act as the active gateway.
 5. Execute `show standby brief` to verify the Active/Standby state of the routers.
-   > 📸 **SCREENSHOT #2:** Capture the CLI output of `show standby brief` on the Active switch, verifying it holds the virtual IP and recognizes the Standby router. (Save as `02-hsrp-standby-brief.png`)
+
 
 ### Phase 3: Control Plane Failover Verification
 1. Access the CLI of Core Switch 1 (the Active gateway) and manually shut down its routing interface to simulate a catastrophic gateway failure.
 2. Access the CLI of Core Switch 2 (the Standby gateway) and execute `show standby brief`.
 3. Verify that Core Switch 2 successfully detected the failure and automatically promoted itself to the `Active` state for the Virtual IP.
 4. Execute `show spanning-tree vlan 10` to verify the Layer 2 path remained open and forwarding (`FWD`) across the redundant EtherChannel trunk during the event.
-   > 📸 **SCREENSHOT #3:** Capture the CLI outputs proving the Standby router transitioned to Active and Spanning Tree maintained forwarding states during the failover event. (Save as `03-failover-ping-test.png`)
+
 
 ---
 
