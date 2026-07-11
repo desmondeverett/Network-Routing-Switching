@@ -1,16 +1,38 @@
-# 📑 Network Routing & Switching: Student Lab Guide
+# 🌐 Enterprise Network Routing & Switching Engineering Laboratory
 
-Welcome to the hands-on networking lab environment. This directory contains the complete, step-by-step instructional guides for building, configuring, and verifying multi-department enterprise topologies using Cisco IOS configurations.
+Welcome to my network engineering sandbox. This repository serves as an open-source, hands-on instructional guide and implementation portfolio for designing, configuring, and verifying multi-department enterprise topologies using Cisco IOS configurations.
+
+Whether you are a recruiter auditing my infrastructure skills or a student looking to replicate these environments step-by-step, this documentation provides full visibility into corporate network baselines.
 
 ---
 
-## 🧭 Curriculum Roadmap & Lab Execution
+## 🏗️ Core Laboratory Architecture
+* **Emulation Environment:** Cisco Packet Tracer
+* **Core Routing Architecture:** Router-on-a-Stick (RoaS) sub-interface design
+* **Switching Fabric:** IEEE 802.1Q Trunking and Virtual Local Area Networks (VLANs)
 
-### 📁 Lab 1: Corporate Core Architecture (Routing & Switching)
-* **Core Concept:** Virtual Local Area Networks (VLANs), 802.1Q trunk encapsulation, and Router-on-a-Stick (RoaS) sub-interface design.
-* **What Learners Will Do:**
-  1. Build a multi-department physical topology container inside Cisco Packet Tracer using straight-through and crossover cabling.
-  2. Access the Layer 2 switch CLI to provision separate broadcast domains and map access interfaces.
-  3. Engineer 802.1Q trunking uplinks to allow tagged data frames to pass between switches.
-  4. Configure logical sub-interfaces on the Core Router to act as default gateways and enable cross-subnet Inter-VLAN routing.
-* **Full Instructions:** Open the complete step-by-step configuration guide here ➡️ [Lab 1 Instructional Guide](./Lab-01-Physical-Topology-Routing.md)
+---
+
+## 🧭 Laboratory Index & Execution Milestones
+
+### 🟢 [Lab 1: Corporate Core Architecture (Routing & Switching)](./Labs/Lab-01-Physical-Topology-Routing.md)
+* **The Blueprint:** Segmenting broadcast domains and engineering logical Inter-VLAN routing gateways.
+* **Key Skills Demonstrated:** 1. Constructing physical topologies using correct media types (straight-through/crossover).
+  2. Isolating department traffic via Layer 2 VLAN database creation.
+  3. Organizing multi-VLAN trunk links (`switchport mode trunk`).
+  4. Building logical sub-interfaces on the Core Router to act as default gateways.
+  5. Verifying cross-subnet communication using end-host ICMP pings.
+
+### 🔵 Lab 2: Infrastructure Redundancy & High Availability *(Under Construction)*
+* **The Blueprint:** Optimizing spanning-tree topologies and bundling link aggregation channels.
+* **Key Skills Targeted:** LACP EtherChannel grouping, Rapid Spanning Tree Protocol (RSTP) priority tuning, and Hot Standby Router Protocol (HSRP) first-hop gateway redundancy.
+
+### 🔵 Lab 3: Secure Enterprise Edge & Remote Access *(Under Construction)*
+* **The Blueprint:** Implementing perimeter access filtering and address translation blocks.
+* **Key Skills Targeted:** Standard/Extended Access Control Lists (ACLs), Dynamic NAT/PAT overload pools, and secure remote terminal configurations.
+
+---
+
+## 🛠️ How to Use This Repository
+1. **Browse the Code:** Navigate to the `/Labs` directory to examine the underlying structural concepts.
+2. **Follow the Steps:** Click on the active **Lab 1** hyperlink above to jump directly into the step-by-step instructional configuration guide, complete with command breakdowns and live verification screenshots.
