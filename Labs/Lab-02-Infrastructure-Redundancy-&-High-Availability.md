@@ -47,6 +47,38 @@ Successfully deployed a highly available network topology. By implementing LACP 
 - **Control Plane Verification:** Adapted testing strategies by relying on control plane verification rather than data plane simulation. By analyzing `show standby brief` and `show spanning-tree` outputs, I was able to mathematically prove that the Standby router successfully promoted itself to Active and that the Layer 2 EtherChannel path remained unblocked and forwarding. 
 - **Protocol Synergy:** Reinforced how LACP and HSRP work together. LACP protects the physical Layer 2 path by preventing spanning-tree loops across multiple links, while HSRP protects the Layer 3 routing path by floating a virtual default gateway.
 
+### Troubleshooting Log: ARP Resolution Bug (Network Lab 02)
+
+**Date:** 2026-07-11
+**Issue:** Persistent connectivity failure due to unresolved ARP mapping between Client A and Router.
+
+#### 1. Problem Description
+Client A could not communicate with the gateway (Router). Ping requests failed despite correct IP configuration. Packet captures revealed that while Client A was sending ARP requests ("Who has 192.168.1.1?"), it was receiving incomplete or stale replies, causing communication to drop at Layer 2.
+
+#### 2. Root Cause Analysis
+* **Observation:** Wireshark indicated a "gratuitous ARP" conflict.
+* **Identification:** A stale ARP cache entry on Client A was pointing to an incorrect/old MAC address for the gateway IP. The cache was not timing out as per standard RFC behavior, likely due to a bug in the lab virtual environment.
+
+#### 3. Resolution (The Fix)
+Executed the following commands to flush the local cache and force the NIC to re-request the correct mapping:
+
+1.  **Clear the specific stale entry:**
+    ```cmd
+    arp -d 192.168.1.1
+    ```
+2.  **Reset the interface ARP cache (full refresh):**
+    ```cmd
+    netsh interface ip delete arpcache
+    ```
+
+#### 4. Verification
+* **Validation:** Performed `arp -a` to confirm the correct MAC address (`00:AA:BB:CC:DD:20`) was now associated with `192.168.1.1`.
+* **Connectivity:** Ran `ping 192.168.1.1` successfully.
+* **Persistence:** Confirmed communication remained stable after a reboot.
+
+---
+*Note: This issue highlights the importance of manual ARP table inspection when troubleshooting Layer 3 reachability issues.*
+
 ### Core Switch Configuration
 You can view the full configuration file here: [Core-1 Configuration](../Text%20Files/core1-config.txt)
 
