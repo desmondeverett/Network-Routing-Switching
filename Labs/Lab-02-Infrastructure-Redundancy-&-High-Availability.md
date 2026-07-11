@@ -1,59 +1,59 @@
-# Lab 2: Infrastructure Redundancy & High Availability
+# Lab 02 - Infrastructure Redundancy & High Availability
 
-## Installation & Configuration Steps
+## Objective
+Engineer a highly available local area network (LAN) by eliminating single points of failure. This is achieved by deploying link aggregation (EtherChannel) between core switches and implementing a First Hop Redundancy Protocol (HSRP) for gateway failover.
 
-## Phase 1: Link Aggregation via LACP EtherChannel
-1. Identify the redundant parallel physical uplinks connecting your Access Switches to the Distribution/Core Switch fabric.
-2. Group the designated interface spans on both connecting nodes using the Cisco IOS command sequence:
+## Environment
+- **Network Simulator:** Cisco Packet Tracer *(or standard Cisco IOS hardware)*
+- **Devices:** 2x Cisco Multilayer Switches (Core), 2x Cisco Access Switches, End-User Workstations
 
-interface range gigabitEthernet 0/1 - 2
-channel-group 1 mode active
+## Requirements & Scope
+1. Provision Layer 2 link aggregation using LACP (Link Aggregation Control Protocol) to prevent spanning-tree loop blocking and increase inter-switch bandwidth.
+2. Configure HSRP across the core multilayer switches to provide a highly available virtual default gateway for end-users.
+3. Simulate a physical link failure and verify seamless traffic failover without dropping continuous user connectivity.
 
----
+## Implementation Steps
 
-## Phase 2: Rapid Spanning Tree Protocol (RSTP) Optimization
-1. Transition the global spanning-tree operational mode from standard legacy STP to Rapid Per-VLAN Spanning Tree to decrease topology convergence times:
+### Phase 1: EtherChannel (LACP) Provisioning
+1. Access the CLI of both Core Switches.
+2. Select the redundant physical interfaces connecting the switches (e.g., `interface range g0/1 - 2`).
+3. Bundle the physical interfaces into a logical Port-Channel using LACP (mode `active`).
+4. Configure the newly created Port-Channel interface as an 802.1Q trunk.
+5. Execute `show etherchannel summary` to verify the bundle is in use (SU).
+   > 📸 **SCREENSHOT #1:** Capture the CLI output of `show etherchannel summary` displaying the active Port-Channel and its bundled physical ports. (Save as `01-etherchannel-summary.png`)
 
-spanning-tree mode rapid-pvst
+### Phase 2: First Hop Redundancy (HSRP) Configuration
+1. Access the CLI of Core Switch 1 (Active) and Core Switch 2 (Standby).
+2. Navigate to the VLAN interface serving as the default gateway for the user subnet (e.g., `interface vlan 10`).
+3. Assign the physical IP addresses to both switches, then configure the shared HSRP virtual IP address (e.g., `standby 10 ip 192.168.10.1`).
+4. Set the HSRP priority on Core Switch 1 to `110` and enable `preempt` to force it to act as the active gateway.
+5. Execute `show standby brief` to verify the Active/Standby state of the routers.
+   > 📸 **SCREENSHOT #2:** Capture the CLI output of `show standby brief` on the Active switch, verifying it holds the virtual IP and recognizes the Standby router. (Save as `02-hsrp-standby-brief.png`)
 
-2. Manually force the primary root bridge path alignment by adjusting the priority variables on your distribution core switch:
-
-spanning-tree vlan 10,20,30 root primary
-
-3. Secure your end-host access edge interfaces by enabling PortFast and BPDU Guard to suppress unnecessary transition delays and block rogue switch attachments.
-
----
-
-## Phase 3: First-Hop Redundancy via HSRP
-1. Establish a virtual default gateway cluster across two separate upstream routing nodes facing your core subnets.
-2. Access the logical sub-interfaces on your primary active router and initialize the Hot Standby Router Protocol (HSRP) instance:
-
-interface vlan 10
-standby 10 ip 192.168.10.1
-standby 10 priority 110
-standby 10 preempt
-
-3. Configure the secondary backup router with default priority values so it remains in a standby state during normal operations.
-4. Execute a continuous ping from a workstation, shut down the active router’s link, and witness the standby gateway cleanly inherit traffic tracking with minimal packet drop.
+### Phase 3: High Availability Failover Verification
+1. Open the command prompt on an end-user workstation and execute a continuous ping to an external network or server (e.g., `ping -t 8.8.8.8`).
+2. While the ping is running, manually shut down the active interface on Core Switch 1, or sever the physical link in the topology.
+3. Observe the continuous ping. Traffic should drop for only a few seconds while HSRP promotes the Standby switch, then successfully resume.
+   > 📸 **SCREENSHOT #3:** Capture the workstation command prompt showing the continuous ping successfully resuming after a brief timeout during the failover event. (Save as `03-failover-ping-test.png`)
 
 ---
 
 ## Outcome
-The physical network design and Inter-VLAN routing matrix were successfully deployed and verified. The logical sub-interfaces on the core router successfully translate and route packets across separate broadcast domains. This setup allows secure, predictable communication between isolated corporate subnets without data leaks or broadcast storms.
+Successfully deployed a highly available network topology. By implementing LACP and HSRP, the infrastructure now automatically tolerates both physical link degradation and complete node failure without requiring manual administrative intervention, ensuring continuous uptime for end-users.
 
 ## Lessons Learned
-* **Encapsulation Command Order:** Confirmed that the encapsulation type and VLAN ID must be explicitly declared via `encapsulation dot1Q <vlan-id>` before the Cisco IOS will accept an IP address configuration on a sub-interface.
-* **Trunk Port Consistency:** Emphasized the importance of configuring matching trunking modes on both ends of the switch uplinks to prevent spanning-tree protocol blocking or native VLAN mismatches.
+(To be completed based on your execution.)
 
----
+## Configurations & Documentation
+- **Core Switch 1 Config:** [View core1-config.txt](../Text%20Files/core1-config.txt)
+- **Core Switch 2 Config:** [View core2-config.txt](../Text%20Files/core2-config.txt)
 
 ## Screenshots
+#### 1. LACP EtherChannel Verification
+![EtherChannel Summary](../Screenshots/01-etherchannel-summary.png)
 
-### 1. EtherChannel Link Aggregation Summary
-![EtherChannel Summary]()
+#### 2. HSRP Gateway State
+![HSRP Verification](../Screenshots/02-hsrp-standby-brief.png)
 
-### 2. Rapid-PVST+ Root Bridge Verification
-![Spanning Tree Root]()
-
-### 3. HSRP Active Gateway Takeover Proof
-![HSRP Standby Brief]()
+#### 3. Continuous Ping Failover Test
+![Failover Test](../Screenshots/03-failover-ping-test.png)
