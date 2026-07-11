@@ -43,7 +43,9 @@ Engineer a highly available local area network (LAN) by eliminating single point
 Successfully deployed a highly available network topology. By implementing LACP and HSRP, the infrastructure now automatically tolerates both physical link degradation and complete node failure without requiring manual administrative intervention, ensuring continuous uptime for end-users.
 
 ## Lessons Learned
-(To be completed based on your execution.)
+- **Simulator Limitations vs. Real-World Engineering:** Encountered a known limitation within Cisco Packet Tracer where gratuitous ARP broadcasts are sometimes dropped during an HSRP state change. This causes end-user ICMP (ping) tests to time out due to a stale ARP cache, even when the redundancy protocols are functioning perfectly.
+- **Control Plane Verification:** Adapted testing strategies by relying on control plane verification rather than data plane simulation. By analyzing `show standby brief` and `show spanning-tree` outputs, I was able to mathematically prove that the Standby router successfully promoted itself to Active and that the Layer 2 EtherChannel path remained unblocked and forwarding. 
+- **Protocol Synergy:** Reinforced how LACP and HSRP work together. LACP protects the physical Layer 2 path by preventing spanning-tree loops across multiple links, while HSRP protects the Layer 3 routing path by floating a virtual default gateway.
 
 ### Core Switch Configuration
 You can view the full configuration file here: [Core-1 Configuration](../Text%20Files/core1-config.txt)
