@@ -11,9 +11,9 @@ Enterprise networking portfolio featuring Cisco routing and switching labs, mult
 
 ## 📸 Topology & Verification Proof
 
-*Network Topology Design:* ![Network Topology](Screenshots/your-topology-image-name.png)
+*Network Topology Design:* ![Network Topology](Screenshots/physical-topology.png)
 
-*Inter-VLAN Routing Verification (Successful Cross-Subnet Ping):* ![Ping Success Verification](Screenshots/your-ping-verification-image-name.png)
+*Inter-VLAN Routing Verification (Successful Cross-Subnet Ping):* ![Ping Success Verification](Screenshots/inter-vlan-ping-success.png)
 
 ### 🛑 Lab 2: Infrastructure Redundancy & High Availability
 * **Status:** 🟦 Coming Soon
