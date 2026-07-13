@@ -31,17 +31,17 @@ Enterprise networking portfolio featuring Cisco routing and switching labs, mult
 
 ---
 
-### 📅 Lab 3: Secure Enterprise Edge & Remote Access
-- **Status:** 🗓️ Planned
-- **Documentation:** *Coming Soon*
+### ✅ Lab 3: Secure Enterprise Edge & Remote Access
+- **Status:** ✅ Completed
+- **Documentation:** [View Lab Documentation](./Labs/Lab-03-Secure-Enterprise-Edge.md)
 - **Description:** Securing the network perimeter and establishing encrypted communication channels for remote sites utilizing Static/Dynamic NAT, Port Address Translation (PAT), and IPsec Site-to-Site VPNs.
 
 #### 📸 Lab 3 Verification
 **1. NAT/PAT Translation Table**
-*[Screenshot: NAT Translations - Coming Soon]*
+![NAT/PAT Translation Table](./Screenshots/nat-pat-translations.png)
 
 **2. IPsec VPN Tunnel Status**
-*[Screenshot: VPN Tunnel Up - Coming Soon]*
+![IPsec VPN Tunnel Status](./Screenshots/ipsec-vpn-tunnel-status.png)
 
 ---
 
