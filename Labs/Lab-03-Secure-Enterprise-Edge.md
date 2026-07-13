@@ -64,13 +64,25 @@ Router(config-if)# crypto map VPNMAP
 
 ## 🧠 Lessons Learned & Troubleshooting
 
-During the deployment of the secure edge, a classic enterprise routing challenge was encountered regarding the router's internal order of operations:
+During the deployment of the secure edge, several classic enterprise routing challenges were encountered and successfully resolved. Documenting these traps is critical for future deployments:
 
-### NAT vs. VPN Order of Operations (NAT Exemption)
-- **Concept:** When traffic hits a Cisco router, NAT translation occurs *before* crypto map encryption. 
-- **Application:** If internal traffic destined for the remote branch office matches the standard NAT ACL (e.g., `access-list 1 permit 10.0.0.0 0.255.255.255`), the router will translate the private IP into the public interface IP. Consequently, the traffic will no longer match the VPN's "interesting traffic" ACL (which is looking for the original private 10.x.x.x addresses), and the VPN tunnel will fail to trigger.
-- **Resolution:** A **NAT Exempt** rule must be implemented. A `deny` statement is placed at the very top of the NAT ACL to explicitly prevent VPN-destined traffic from being translated, allowing it to pass through to the crypto engine untouched.
+### 1. NAT vs. VPN Order of Operations (NAT Exemption)
+- **Concept:** When traffic hits a Cisco router, NAT translation occurs *before* crypto map encryption.
+- **Application:** If internal traffic destined for the remote branch matches the standard NAT ACL, the router translates the private IP into the public interface IP. Consequently, the traffic no longer matches the VPN's "interesting traffic" ACL (which looks for original private 10.x.x.x addresses), and the VPN tunnel fails to trigger.
+- **Resolution:** A *NAT Exempt* rule was implemented. A `deny` statement is placed at the top of the NAT ACL to explicitly prevent VPN-destined traffic from being translated, allowing it to pass untouched to the crypto engine.
 
+### 2. Physical Interface Naming Conventions
+- **Issue:** Applying configurations to `GigabitEthernet0/0` on newer router models (like the Cisco 4331) caused the router to silently reject the VPN configuration blocks because the actual physical interfaces use a 3-number format (e.g., `GigabitEthernet0/0/0`).
+- **Resolution:** Verified physical interfaces using `show run` and `show ip int brief`, then completely rewrote and reapplied the NAT and Crypto Map configurations to target the exact hardware interface format.
+
+### 3. Subnet Misalignments on Point-to-Point Links
+- **Issue:** A single-digit typo on a /30 point-to-point WAN link (e.g., configuring `192.51.100.1` instead of `198.51.100.1`) caused complete routing failure, resulting in "Destination host unreachable" errors when PCs attempted to ping the ISP.
+- **Resolution:** Tracked the packet drop to the local gateway, verified interface IPs using `show ip int brief`, and corrected the IP address on the specific interface to restore connectivity to the target subnet.
+
+### 4. IPsec "On-Demand" Tunnels & Privilege Modes
+- **Issue:** Attempting to verify the VPN yielded "Invalid input detected" and "No SAs found" errors.
+- **Resolution:** 1. **Privilege Levels:** Realized that advanced cryptography verification commands (`show crypto ipsec sa`) are hidden in User EXEC mode (`Router>`) and must be executed in Privileged EXEC mode (`Router#`).
+  2. **Waking the Tunnel:** Cisco IPsec VPNs are "on-demand." They sit dormant until "interesting traffic" triggers them. Sent continuous pings specifically from the internal PC's private IP (not the router's public IP) to force Phase 1 and Phase 2 negotiations to wake up and establish the Security Associations.
 ---
 
 ## 📸 Verification & Screenshots
