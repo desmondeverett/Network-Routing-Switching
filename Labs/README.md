@@ -1,38 +1,52 @@
-# 🌐 Enterprise Network Routing & Switching Engineering Laboratory
+# Network-Routing-Switching
+Enterprise networking portfolio featuring Cisco routing and switching labs, multi-department VLAN architectures, infrastructure redundancy (STP/HSRP), and secure edge VPN configurations.
 
-Welcome to my network engineering sandbox. This repository serves as an open-source, hands-on instructional guide and implementation portfolio for designing, configuring, and verifying multi-department enterprise topologies using Cisco IOS configurations.
+## 🛠️ Network Lab Topology & Roadmap
 
-Whether you are a recruiter auditing my infrastructure skills or a student looking to replicate these environments step-by-step, this documentation provides full visibility into corporate network baselines.
+### ✅ Lab 1: Corporate Core Architecture (Routing & Switching)
+- **Status:** ✅ Completed
+- **Documentation:** [View Lab Documentation](./Labs/Lab-01-Physical-Topology-Routing.md)
+- **Description:** Designing a multi-department enterprise network implementing VLSM, subinterfaces, Inter-VLAN routing (Router-on-a-Stick), and DHCP relay configurations using 802.1Q Trunking and Access Control Lists (ACLs).
 
----
+#### 📸 Lab 1 Verification
+**1. Network Topology Design**
+![Network Topology](./Screenshots/physical-topology.png)
 
-## 🏗️ Core Laboratory Architecture
-* **Emulation Environment:** Cisco Packet Tracer
-* **Core Routing Architecture:** Router-on-a-Stick (RoaS) sub-interface design
-* **Switching Fabric:** IEEE 802.1Q Trunking and Virtual Local Area Networks (VLANs)
-
----
-
-## 🧭 Laboratory Index & Execution Milestones
-
-### 🟢 [Lab 1: Corporate Core Architecture (Routing & Switching)](./Labs/Lab-01-Physical-Topology-Routing.md)
-* **The Blueprint:** Segmenting broadcast domains and engineering logical Inter-VLAN routing gateways.
-* **Key Skills Demonstrated:** 1. Constructing physical topologies using correct media types (straight-through/crossover).
-  2. Isolating department traffic via Layer 2 VLAN database creation.
-  3. Organizing multi-VLAN trunk links (`switchport mode trunk`).
-  4. Building logical sub-interfaces on the Core Router to act as default gateways.
-  5. Verifying cross-subnet communication using end-host ICMP pings.
-
-### 🔵 Lab 2: Infrastructure Redundancy & High Availability *(Under Construction)*
-* **The Blueprint:** Optimizing spanning-tree topologies and bundling link aggregation channels.
-* **Key Skills Targeted:** LACP EtherChannel grouping, Rapid Spanning Tree Protocol (RSTP) priority tuning, and Hot Standby Router Protocol (HSRP) first-hop gateway redundancy.
-
-### 🔵 Lab 3: Secure Enterprise Edge & Remote Access *(Under Construction)*
-* **The Blueprint:** Implementing perimeter access filtering and address translation blocks.
-* **Key Skills Targeted:** Standard/Extended Access Control Lists (ACLs), Dynamic NAT/PAT overload pools, and secure remote terminal configurations.
+**2. Inter-VLAN Routing Verification**
+![Ping Success Verification](./Screenshots/inter-vlan-ping-success.png)
 
 ---
 
-## 🛠️ How to Use This Repository
-1. **Browse the Code:** Navigate to the `/Labs` directory to examine the underlying structural concepts.
-2. **Follow the Steps:** Click on the active **Lab 1** hyperlink above to jump directly into the step-by-step instructional configuration guide, complete with command breakdowns and live verification screenshots.
+### ✅ Lab 2: Infrastructure Redundancy & High Availability
+- **Status:** ✅ Completed
+- **Documentation:** [View Lab Documentation](./Labs/Lab-02-Infrastructure-Redundancy-&-High-Availability.md)
+- **Description:** Eliminating single points of failure by engineering backup paths and optimizing layer 2 loop prevention using EtherChannel (LACP), Rapid Spanning Tree Protocol (RSTP), and Hot Standby Router Protocol (HSRP).
+
+#### 📸 Lab 2 Verification
+**1. LACP EtherChannel Verification**
+![EtherChannel Summary](./Screenshots/01-etherchannel-summary.png)
+
+**2. Control Plane Failover Verification**
+![Failover Test](./Screenshots/03-failover-ping-test.png)
+
+---
+
+### 📅 Lab 3: Secure Enterprise Edge & Remote Access
+- **Status:** 🗓️ Planned
+- **Documentation:** *Coming Soon*
+- **Description:** Securing the network perimeter and establishing encrypted communication channels for remote sites utilizing Static/Dynamic NAT, Port Address Translation (PAT), and IPsec Site-to-Site VPNs.
+
+#### 📸 Lab 3 Verification
+**1. NAT/PAT Translation Table**
+*[Screenshot: NAT Translations - Coming Soon]*
+
+**2. IPsec VPN Tunnel Status**
+*[Screenshot: VPN Tunnel Up - Coming Soon]*
+
+---
+
+## 📁 Repository Directory Structure
+- **/Labs** — Step-by-step markdown documentation, lessons learned, and verification walkthroughs.
+- **/Topologies** — Cisco Packet Tracer (`.pkt`) and architecture design files.
+- **/Text Files** — Device running-configurations (Cisco IOS) mapped to each lab.
+- **/Screenshots** — Visual proof of successful command outputs and topology designs.
