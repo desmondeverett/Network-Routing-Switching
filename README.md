@@ -5,15 +5,15 @@ Enterprise networking portfolio featuring Cisco routing and switching labs, mult
 
 ### ✅ Lab 1: Corporate Core Architecture (Routing & Switching)
 - **Status:** ✅ Completed
-- **Documentation:** [View Lab Documentation](./Labs/Lab-01-Corporate-Core-Architecture.md)
+- **Documentation:** [View Lab Documentation](./Labs/Lab-01-Physical-Topology-Routing.md)
 - **Description:** Designing a multi-department enterprise network implementing VLSM, subinterfaces, Inter-VLAN routing (Router-on-a-Stick), and DHCP relay configurations using 802.1Q Trunking and Access Control Lists (ACLs).
 
 #### 📸 Lab 1 Verification
 **1. Network Topology Design**
-![Network Topology](./Screenshots/1-Network-Topology.png)
+![Network Topology](./Screenshots/physical-topology.png)
 
 **2. Inter-VLAN Routing Verification**
-![Ping Success Verification](./Screenshots/2-Ping-Success-Verification.png)
+![Ping Success Verification](./Screenshots/inter-vlan-ping-success.png)
 
 ---
 
@@ -24,10 +24,10 @@ Enterprise networking portfolio featuring Cisco routing and switching labs, mult
 
 #### 📸 Lab 2 Verification
 **1. LACP EtherChannel Verification**
-![EtherChannel Summary](./Screenshots/3-EtherChannel-Summary.png)
+![EtherChannel Summary](./Screenshots/01-etherchannel-summary.png)
 
 **2. Control Plane Failover Verification**
-![Failover Test](./Screenshots/4-Failover-Test.png)
+![Failover Test](./Screenshots/03-failover-ping-test.png)
 
 ---
 
